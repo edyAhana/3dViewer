@@ -17,11 +17,17 @@ public:
             return false;
         }
 
+        return true;
+    }
+
+    bool init_glad() const {
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         {
             glfwTerminate();
             return false;
         }
+        
+        return true;
     }
 
 };
