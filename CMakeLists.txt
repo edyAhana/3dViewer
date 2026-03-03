@@ -18,9 +18,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(glfw)
 
 add_executable(main main.cpp)
-target_link_libraries(main PRIVATE glfw)
-target_link_libraries(main PRIVATE glad)
-
-target_include_directories(main PRIVATE third_party/glad/include)
+target_link_libraries(main PRIVATE core)
 
 add_subdirectory(third_party)
+add_subdirectory(engine)
