@@ -12,10 +12,9 @@ public:
     GLFWWindow(WindowProperty property = WindowProperty());
 
     bool init() override;
-
     bool window_should_close() const noexcept override;
-
     void update() const override;
+    void make_current_ctx() override;
 
     ~GLFWWindow();
 };
