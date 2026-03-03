@@ -6,27 +6,24 @@
 #include <GLFW/glfw3.h>
 
 class GLFWInitializer {
-private:
-    bool inited = false;
 public:
-    GLFWInitializer() {
+    GLFWInitializer() = default;
+    ~GLFWInitializer() {
+        glfwTerminate();
+    }
+
+    bool init() const { 
         if(!glfwInit()) {
-            std::cerr << "*** FAILED TO INIT GLFW ***" << std::endl;
-            return;
+            return false;
         }
 
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         {
             glfwTerminate();
-            return;
+            return false;
         }
     }
 
-    bool is_init() const noexcept { return inited; }
-
-    ~GLFWInitializer() {
-        glfwTerminate();
-    }
 };
 
 

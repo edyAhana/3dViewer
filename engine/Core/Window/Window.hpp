@@ -27,7 +27,7 @@ struct WindowProperty {
 
 
 class Window {
-private:
+protected:
     WindowProperty property;
 public:
     Window(WindowProperty property): property(std::move(property)) {}
@@ -45,7 +45,7 @@ public:
     virtual bool window_should_close() const noexcept = 0;
     virtual void update() const = 0;
     
-    static std::unique_ptr<Window> CreateWindow(WindowProperty wp = WindowProperty());
+    static std::unique_ptr<Window> create_window(WindowProperty wp = WindowProperty());
 };
 
 

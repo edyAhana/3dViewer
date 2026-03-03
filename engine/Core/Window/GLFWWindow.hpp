@@ -1,6 +1,8 @@
 #ifndef GLFW_WINDOW_HPP
 #define GLFW_WINDOW_HPP
 
+#include <GLFW/glfw3.h>
+
 #include "Window.hpp"
 
 class GLFWWindow: public Window {

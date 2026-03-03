@@ -5,7 +5,9 @@
 GLFWWindow::GLFWWindow(WindowProperty property): Window(std::move(property))
                                                  , window(nullptr) {}
 
-bool GLFWWindow::init() { return window = glfwWindowInit(); }
+bool GLFWWindow::init() { 
+    return window = glfwCreateWindow(property.height, property.width, property.title.c_str(), NULL, NULL);
+}
 
 bool GLFWWindow::window_should_close() const noexcept { return glfwWindowShouldClose(window); }
 
