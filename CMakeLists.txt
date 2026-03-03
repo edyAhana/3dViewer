@@ -19,6 +19,7 @@ FetchContent_MakeAvailable(glfw)
 
 add_executable(main main.cpp)
 target_link_libraries(main PRIVATE core)
+target_link_libraries(main PRIVATE GLFW)
 
 add_subdirectory(third_party)
 add_subdirectory(engine)
