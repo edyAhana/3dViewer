@@ -1,12 +1,14 @@
 #ifndef GLFW_WINDOW_HPP
 #define GLFW_WINDOW_HPP
 
-#include <GLFW/glfw3.h>
+#include <iostream>
 
 #include "Window.hpp"
+#include "GLFWInitializer.hpp"
 
 class GLFWWindow: public Window {
 private:
+    GLFWInitializer glfw;
     GLFWwindow* window;
 public:
     GLFWWindow(WindowProperty property = WindowProperty());
@@ -14,7 +16,7 @@ public:
     bool init() override;
     bool window_should_close() const noexcept override;
     void update() const override;
-    void make_current_ctx() override;
+    void* get_native_window() override;
 
     ~GLFWWindow();
 };

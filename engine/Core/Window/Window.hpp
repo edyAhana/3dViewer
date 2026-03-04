@@ -44,7 +44,7 @@ public:
     virtual bool init() = 0;
     virtual bool window_should_close() const noexcept = 0;
     virtual void update() const = 0;
-    virtual void make_current_ctx() = 0;
+    virtual void* get_native_window() = 0;
     
     static std::unique_ptr<Window> create_window(WindowProperty wp = WindowProperty());
 };
