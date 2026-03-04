@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    Application app;
+    Application& app = Application::get_instance();
 
     app.run();
 
