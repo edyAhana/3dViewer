@@ -1,23 +1,12 @@
 #include "Application.hpp"
 
-Application::Application(WindowProperty wp): glfw()
-                                           , window(Window::create_window(std::move(wp))) {}
+Application* Application::Instance = nullptr;
+
+Application::Application(WindowProperty wp):  window(Window::create_window(std::move(wp))) {}
 
 bool Application::run() {
-    if(!glfw.init()) {
-        std::cerr << "*** FAILED TO INIT GLFW ***" << std::endl;
-        return false;
-    }
 
     if(!window->init()) {
-        std::cerr << "*** FAILED TO CREATE WINDOW ***" << std::endl;
-        return false;
-    }
-
-    window->make_current_ctx();
-
-    if(!glfw.init_glad()) {
-        std::cerr << "*** FAILED TO INIT GLAD ***" << std::endl;
         return false;
     }
 
@@ -27,3 +16,20 @@ bool Application::run() {
 
     return true;
 }
+
+
+Application& Application::get_instance(WindowProperty wp) {
+    static Application app(std::move(wp));
+    Instance = &app;
+    return app;
+}
+
+
+Window* Application::get_window() {
+    auto ptr = Instance->window.get();
+    if(!ptr) {
+        return nullptr;
+    }
+    return ptr;
+}
+
