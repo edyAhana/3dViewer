@@ -2,6 +2,9 @@
 #define APPLICATION_HPP
 
 #include "Window.hpp"
+#include "GraficsContext.hpp"
+#include "Renderer.hpp"
+#include "Time.hpp"
 
 class Application {
 private:
@@ -21,7 +24,7 @@ public:
     bool run();
 
     static Application& get_instance(WindowProperty wp = WindowProperty());
-    static Window* get_window();
+    static std::unique_ptr<Window>& get_window();
 };
 
 #endif 

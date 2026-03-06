@@ -10,8 +10,16 @@ bool Application::run() {
         return false;
     }
 
+    if(!GraficsContext::init()) {
+        return false;
+    }
+
+
     while(!window->window_should_close()) {
-        window->update();
+        Time::update();
+        Renderer::set_clear_color();
+        Renderer::clear();
+        GraficsContext::swap_buffers();
     }
 
     return true;
@@ -25,11 +33,7 @@ Application& Application::get_instance(WindowProperty wp) {
 }
 
 
-Window* Application::get_window() {
-    auto ptr = Instance->window.get();
-    if(!ptr) {
-        return nullptr;
-    }
-    return ptr;
+std::unique_ptr<Window>& Application::get_window() {
+    return Instance->window;
 }
 
