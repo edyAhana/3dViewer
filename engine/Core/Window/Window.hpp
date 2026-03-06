@@ -39,11 +39,10 @@ public:
     std::size_t x_pos() const noexcept { return property.x_pos; }
     std::size_t width() const noexcept { return property.width; }
     std::size_t height() const noexcept { return property.height; }
-    const std::string_view title() const noexcept { return {property.title}; }
+    const std::string_view title() const noexcept { return property.title; }
 
     virtual bool init() = 0;
     virtual bool window_should_close() const noexcept = 0;
-    virtual void update() const = 0;
     virtual void* get_native_window() = 0;
     
     static std::unique_ptr<Window> create_window(WindowProperty wp = WindowProperty());
