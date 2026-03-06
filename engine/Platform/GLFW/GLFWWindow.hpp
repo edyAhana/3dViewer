@@ -15,7 +15,6 @@ public:
 
     bool init() override;
     bool window_should_close() const noexcept override;
-    void update() const override;
     void* get_native_window() override;
 
     ~GLFWWindow();
