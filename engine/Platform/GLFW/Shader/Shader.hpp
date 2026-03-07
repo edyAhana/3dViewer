@@ -3,6 +3,9 @@
 
 #include <string>
 #include <filesystem>
+#include <optional>
+
+#include "GLFW.hpp"
 
 using Path = std::filesystem::path;
 

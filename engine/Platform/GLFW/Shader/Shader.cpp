@@ -4,7 +4,7 @@
 #include <optional>
 
 #include "Shader.hpp"
-#include "GLFWInitializer.hpp"
+#include "GLFW.hpp"
 
 
 Shader::Shader(): shader(), id(0) {} 
@@ -56,7 +56,8 @@ void Shader::load_shader(GLenum type) {
     }
     
     id = glCreateShader(type);
-    glShaderSource(id, 1, shader.c_str(), NULL);
+    auto str = shader.c_str();
+    glShaderSource(id, 1, &str, NULL);
 }
 
 bool Shader::compile_shader() const {

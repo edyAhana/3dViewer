@@ -1,14 +1,16 @@
+#include <iostream>
+
 #include "ShaderProgram.hpp"
-#include "GLFWInitializer.hpp"
+#include "GLFW.hpp"
 
-ShaderProgrma(): id(0) {}
-~ShaderPogram() {}
+ShaderProgram::ShaderProgram(): id(0) {}
+ShaderProgram::~ShaderProgram() {}
 
-void init() {
+void ShaderProgram::init() {
     id = glCreateProgram();
 }
 
-void attach_shader(const Shader& shader) const {
+void ShaderProgram::attach_shader(const Shader& shader) const {
     if(id == 0) {
         std::cerr << "*** PROGRMA IS NOT CREATED ***" << std::endl;
         return;
@@ -22,7 +24,7 @@ void attach_shader(const Shader& shader) const {
     glAttachShader(id, shader.get_id());
 }
 
-bool link_progrma() const  {
+bool ShaderProgram::link_program() const  {
     if(id == 0) {
         std::cerr << "*** PROGRMA IS NOT CREATED ***" << std::endl;
         return false;
@@ -32,11 +34,11 @@ bool link_progrma() const  {
 
     GLint success;
     GLchar infolog[512];
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    glGetProgramiv(id, GL_LINK_STATUS, &success);
 
     if (!success) {
         std::cerr << "*** LINK ERROR ***" << std::endl;
-        glGetProgramInfoLog(id, 512, NULL, infoLog);
+        glGetProgramInfoLog(id, 512, NULL, infolog);
         std::cerr << infolog << std::endl;
         return false;
     }
@@ -44,7 +46,7 @@ bool link_progrma() const  {
     return true;
 }
 
-void use() const {
+void ShaderProgram::use() const {
     if(id == 0) {
         std::cerr << "*** PROGRMA IS NOT CREATED ***" << std::endl;
         return;
