@@ -2,7 +2,7 @@
 
 #include "GraficsContext.hpp"
 #include "Application.hpp"
-#include "GLFWInitializer.hpp"
+#include "GLFW.hpp"
 
 bool GraficsContext::init() {
     auto& window = Application::get_window();

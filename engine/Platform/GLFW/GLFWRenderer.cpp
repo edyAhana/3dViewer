@@ -1,4 +1,5 @@
 #include "Renderer.hpp"
+#include "GLFW.hpp"
 
 void Renderer::init()
 {
