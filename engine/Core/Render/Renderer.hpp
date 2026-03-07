@@ -1,8 +1,6 @@
 #ifndef RENDERER_HPP
 #define RENDERER_HPP
 
-#include "GLFWInitializer.hpp"
-
 class Renderer {
 public: 
     static void init();
