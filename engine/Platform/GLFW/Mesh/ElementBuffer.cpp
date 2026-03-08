@@ -22,7 +22,9 @@ ElementBuffer::ElementBuffer(const void* data, std::size_t sz, GLenum vertex_usa
         , size(sz)
         , vertex_usage(vertex_usage) {
     glGenBuffers(1, &buffer_id);
+    bind();
     set_data(data, sz);
+    unbind();
 }
 
 ElementBuffer::ElementBuffer(const std::vector<unsigned>& data, GLenum vertex_usage)
@@ -30,7 +32,9 @@ ElementBuffer::ElementBuffer(const std::vector<unsigned>& data, GLenum vertex_us
         , size(data.size() * sizeof(unsigned))
         , vertex_usage(vertex_usage) {
     glGenBuffers(1, &buffer_id);
+    bind();
     set_data(data);
+    unbind();
 }
 
 void ElementBuffer::bind() const {
@@ -46,7 +50,7 @@ void ElementBuffer::set_data(const void* data, std::size_t sz) {
     size = sz;
 
     if (GLenum error = glGetError(); error != GL_NO_ERROR) {
-        std::cerr << "OpenGL error in VertexBuffer::setData: " << error << std::endl;
+        std::cerr << "OpenGL error in ElementBuffer::setData: " << error << std::endl;
     }
 }
 

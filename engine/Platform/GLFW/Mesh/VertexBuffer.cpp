@@ -14,7 +14,9 @@ VertexBuffer::VertexBuffer(const void* data, std::size_t sz, GLenum vertex_usage
         , size(sz)
         , vertex_usage(vertex_usage) {
     glGenBuffers(1, &buffer_id);
+    bind();
     set_data(data, sz);
+    unbind();
 }
 
 VertexBuffer::VertexBuffer(const std::vector<float>& data, GLenum vertex_usage)
@@ -22,7 +24,9 @@ VertexBuffer::VertexBuffer(const std::vector<float>& data, GLenum vertex_usage)
         , size(data.size() * sizeof(float))
         , vertex_usage(vertex_usage) {
     glGenBuffers(1, &buffer_id);
+    bind();
     set_data(data);
+    unbind();
 }
 
 VertexBuffer::~VertexBuffer() {
@@ -42,8 +46,10 @@ void VertexBuffer::unbind() const {
 }
 
 void VertexBuffer::set_data(const void* date, std::size_t sz){
+    bind();
     glBufferData(GL_ARRAY_BUFFER, sz, date, vertex_usage);
     size = sz;
+    unbind();
 
     if (GLenum error = glGetError(); error != GL_NO_ERROR) {
         std::cerr << "OpenGL error in VertexBuffer::setData: " << error << std::endl;

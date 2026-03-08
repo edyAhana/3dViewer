@@ -42,6 +42,7 @@ void VertexArray::unbind() const {
 }
 
 void VertexArray::set_vertex_buffer(const VertexBuffer& buff, const VertexLayout& layout)  const{
+    bind();
     buff.bind();
 
     for (std::size_t i = 0; i < layout.get_size(); ++i) {
@@ -58,13 +59,16 @@ void VertexArray::set_vertex_buffer(const VertexBuffer& buff, const VertexLayout
         }
     }
     buff.unbind();
+    unbind();
 }
 
 void VertexArray::set_element_buffer(const ElementBuffer& buff) const {
+    bind();
     buff.bind();
     if (GLenum error = glGetError(); error != GL_NO_ERROR) {
         std::cerr << "OpenGL error in element attribute "  << error << std::endl;
     }
+    unbind();
 }
 
 GLuint VertexArray::get_id() const {

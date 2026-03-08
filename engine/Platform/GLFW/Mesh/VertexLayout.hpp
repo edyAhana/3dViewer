@@ -16,7 +16,7 @@ private:
 
 private:
     std::vector<VertexAttribute> attributes;
-    std::size_t step;
+    std::size_t step = 0;
 public:
     VertexLayout() = default;
     VertexLayout(const VertexLayout& other) = default;
