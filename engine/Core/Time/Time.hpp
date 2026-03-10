@@ -3,12 +3,12 @@
 
 class Time {
 private:
-    static double Delta;
-    static double Total;
+    static float Delta;
+    static float Total;
 public:
     static void update();
-    static double get_delta();
-    static double get_total();
+    static float get_delta() { return Delta; }
+    static float get_total() { return Total; }
 };
 
 

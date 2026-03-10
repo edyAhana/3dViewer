@@ -10,7 +10,7 @@ public:
     static bool is_key_pressed(int key);
     static bool is_mouse_pressed(int button);
 
-    static std::pair<double,double> get_cursor_pos();
+    static std::pair<float, float> get_cursor_pos();
 };
 
 

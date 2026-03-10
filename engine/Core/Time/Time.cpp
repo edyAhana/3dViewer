@@ -9,17 +9,17 @@ namespace
     auto LastFrame = Clock::now();
 }
 
-double Time::Delta = 0.0f;
-double Time::Total = 0.0f;
+float Time::Delta = 0.0f;
+float Time::Total = 0.0f;
 
 void Time::update()
 {
     auto now = Clock::now();
 
-    std::chrono::duration<double> delta = now - LastFrame;
+    std::chrono::duration<float> delta = now - LastFrame;
     Delta = delta.count();
 
-    std::chrono::duration<double> total = now - StartTime;
+    std::chrono::duration<float> total = now - StartTime;
     Total = total.count();
 
     LastFrame = now;

@@ -22,7 +22,6 @@ struct WindowProperty {
                         , height(height)
                         , title(std::move(title)) {}
 
-    WindowProperty(WindowProperty&& other) = default;
 };
 
 
@@ -30,7 +29,7 @@ class Window {
 protected:
     WindowProperty property;
 public:
-    Window(WindowProperty property): property(std::move(property)) {}
+    Window(const WindowProperty& property): property(property) {}
                                             
     virtual ~Window() = default;
 
@@ -45,7 +44,7 @@ public:
     virtual bool window_should_close() const noexcept = 0;
     virtual void* get_native_window() = 0;
     
-    static std::unique_ptr<Window> create_window(WindowProperty wp = WindowProperty());
+    static std::shared_ptr<Window> create_window(const WindowProperty& wp = WindowProperty());
 };
 
 

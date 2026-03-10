@@ -1,6 +1,7 @@
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
 
+#include "Camera.hpp"
 #include "Window.hpp"
 #include "GraficsContext.hpp"
 #include "Renderer.hpp"
@@ -10,9 +11,10 @@ class Application {
 private:
     static Application* Instance;
 private:
-    std::unique_ptr<Window> window;
+    std::shared_ptr<Window> window;
+    std::shared_ptr<Camera> camera;
 
-    Application(WindowProperty wp = WindowProperty());
+    Application(const WindowProperty& wp = WindowProperty());
 public:
     Application(const Application& other) = delete;
     Application(Application&& other) = delete;
@@ -23,8 +25,9 @@ public:
 
     bool run();
 
-    static Application& get_instance(WindowProperty wp = WindowProperty());
-    static std::unique_ptr<Window>& get_window();
+    static Application& get_instance(const WindowProperty& wp = WindowProperty());
+    static std::shared_ptr<Window> get_window();
+    static std::shared_ptr<Camera> get_camera();
 };
 
 #endif 

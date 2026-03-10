@@ -6,7 +6,7 @@
 
 
 bool Input::is_key_pressed(int key) {
-    auto& window = Application::get_window();
+    auto window = Application::get_window();
     if(!window) {
         std::cerr << "*** APP IS NOT STARTED YET ***" << std::endl;
         std::cerr << "    failed to get key state" << std::endl;
@@ -20,7 +20,7 @@ bool Input::is_key_pressed(int key) {
 }
 
 bool Input::is_mouse_pressed(int button) {
-    auto& window = Application::get_window();
+    auto window = Application::get_window();
     if(!window) {
         std::cerr << "*** APP IS NOT STARTED YET ***" << std::endl;
         std::cerr << "    failed to get mouse button state" << std::endl;
@@ -34,8 +34,8 @@ bool Input::is_mouse_pressed(int button) {
     return state == GLFW_PRESS;
 }
 
-std::pair<double,double> Input::get_cursor_pos() {
-    auto& window = Application::get_window();
+std::pair<float, float> Input::get_cursor_pos() {
+    auto window = Application::get_window();
     if(!window) {
         std::cerr << "*** APP IS NOT STARTED YET ***" << std::endl;
         std::cerr << "    failed to get cursor position" << std::endl;

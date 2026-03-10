@@ -15,6 +15,8 @@ public:
     void attach_shader(const Shader& shader) const;
     bool link_program() const;
     void use() const;
+
+    GLuint get_id() const { return id; }
 };
 
 #endif 

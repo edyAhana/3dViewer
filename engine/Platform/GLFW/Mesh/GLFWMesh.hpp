@@ -1,8 +1,8 @@
 #ifndef MAIN_GLFWMESH_HPP
 #define MAIN_GLFWMESH_HPP
 
-#include <glm/glm.hpp>
 
+#include "Math.hpp"
 #include "Mesh.hpp"
 #include "VertexBuffer.hpp"
 #include "VertexArray.hpp"
@@ -19,10 +19,12 @@ private:
     void set_up_mesh();
 public:
     GLFWMesh() = default;
-    GLFWMesh( std::vector<Vertex> vertices
-            , std::vector<unsigned int> indices)
-                    : Mesh(std::move(vertices)
-                    , std::move(indices)) {
+    GLFWMesh( const std::vector<Vertex>& vertices
+            , const std::vector<unsigned int>& indices = std::vector<unsigned int>()
+            , matrix4 model = matrix4(1))
+                    : Mesh( vertices
+                          , indices
+                          , model   ) {
         set_up_mesh();
     }
 
@@ -33,6 +35,9 @@ public:
     ~GLFWMesh() = default;
 
     void draw() const  override;
+    void rotate(float angle, MeshEnum axis) override;
+    void translate(const vector3& translation) override;
+    void scale(const vector3& scale) override;
 };
 
 

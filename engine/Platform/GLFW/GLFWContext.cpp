@@ -5,7 +5,7 @@
 #include "GLFW.hpp"
 
 bool GraficsContext::init() {
-    auto& window = Application::get_window();
+    auto window = Application::get_window();
     if(!window) {
         std::cerr << "*** APP IS NOT STARTED YET ***" << std::endl;
         std::cerr << "    failed to make contxt current" << std::endl;
@@ -23,7 +23,7 @@ bool GraficsContext::init() {
 }
 
 void GraficsContext::swap_buffers() {
-    auto& window = Application::get_window();
+    auto window = Application::get_window();
     if(!window) {
         std::cerr << "*** APP IS NOT STARTED YET ***" << std::endl;
         std::cerr << "    failed to swap buffers" << std::endl;

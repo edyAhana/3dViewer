@@ -14,8 +14,8 @@ bool GLFWWindow::init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(property.height
-                             , property.width
+    window = glfwCreateWindow(property.width
+                             , property.height
                              , property.title.c_str()
                              , NULL
                              , NULL
@@ -25,6 +25,7 @@ bool GLFWWindow::init() {
         std::cerr << "*** FAILED TO CREATE WINDOW ***" << std::endl;
         return false;
     }
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     return true;
 }
 

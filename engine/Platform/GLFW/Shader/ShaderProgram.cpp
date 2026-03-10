@@ -4,7 +4,11 @@
 #include "GLFW.hpp"
 
 ShaderProgram::ShaderProgram(): id(0) {}
-ShaderProgram::~ShaderProgram() {}
+ShaderProgram::~ShaderProgram() {
+    if(id == 0) {
+        glDeleteProgram(id);
+    }
+}
 
 void ShaderProgram::init() {
     id = glCreateProgram();
