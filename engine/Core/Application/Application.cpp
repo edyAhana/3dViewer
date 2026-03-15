@@ -5,12 +5,12 @@
 #include <__ranges/transform_view.h>
 
 #include "CameraControler.hpp"
-#include "Shader/Shader.hpp"
-#include "Shader/ShaderProgram.hpp"
+#include "Shader.hpp"
+#include "ShaderProgram.hpp"
 #include "Mesh.hpp"
 #include "ShaderManager.hpp"
 #include "VertexArray.hpp"
-#include "Mesh/VertexBuffer.hpp"
+#include "VertexBuffer.hpp"
 
 Application* Application::Instance = nullptr;
 

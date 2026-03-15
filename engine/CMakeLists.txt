@@ -9,13 +9,13 @@ target_include_directories(IGLM INTERFACE ${glm_SOURCE_DIR})
 add_library(GLFW
         Platform/GLFW/Camera/Camera.cpp
         Platform/GLFW/Camera/CameraControler.cpp
-        Platform/GLFW/Mesh/ElementBuffer.cpp
-        Platform/GLFW/Mesh/GLFWMesh.cpp
-        Platform/GLFW/Mesh/VertexArray.cpp
-        Platform/GLFW/Mesh/VertexBuffer.cpp
-        Platform/GLFW/Shader/Shader.cpp
-        Platform/GLFW/Shader/ShaderProgram.cpp
-        Platform/GLFW/Shader/ShaderManager.cpp
+        Platform/OpenGL/Mesh/ElementBuffer.cpp
+        Platform/OpenGL/Mesh/GLFWMesh.cpp
+        Platform/OpenGL/Mesh/VertexArray.cpp
+        Platform/OpenGL/Mesh/VertexBuffer.cpp
+        Platform/OpenGL/Shader/Shader.cpp
+        Platform/OpenGL/Shader/ShaderProgram.cpp
+        Platform/OpenGL/Shader/ShaderManager.cpp
         Platform/GLFW/GLFWContext.cpp
         Platform/GLFW/GLFWInput.cpp
         Platform/GLFW/GLFWRenderer.cpp
@@ -36,8 +36,8 @@ target_include_directories(GLFW PUBLIC
         Core/Render/
         Core/Time/
         Core/Window/
-        Platform/GLFW/Mesh
-        Platform/GLFW/Shader
+        Platform/OpenGL/Mesh
+        Platform/OpenGL/Shader
         Platform/GLFW/
 )
 
@@ -60,7 +60,7 @@ target_include_directories(core PUBLIC
         Core/Render/
         Core/Time/
         Core/Window/
-        Platform/GLFW/Mesh
-        Platform/GLFW/Shader
+        Platform/OpenGL/Mesh
+        Platform/OpenGL/Shader
         Platform/GLFW/
 )
