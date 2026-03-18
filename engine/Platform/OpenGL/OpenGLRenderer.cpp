@@ -1,11 +1,27 @@
+#include <iostream>
+
 #include "Application.hpp"
 #include "Renderer.hpp"
 #include "GLFW.hpp"
 #include "ShaderManager.hpp"
 
-void Renderer::init()
+bool Renderer::init()
 {
+    auto window = Application::get_window();
+    if(!window) {
+        std::cerr << "[Renderer::init] : window is not created yet" << std::endl;
+        return false;
+    }
+
+    glfwMakeContextCurrent(static_cast<GLFWwindow*>(window->get_native_window()));
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cerr << "[Renderer::init] : failed to initialize GLAD" << std::endl;
+        return false;
+    }
     glEnable(GL_DEPTH_TEST);
+    return true;
 }
 
 void Renderer::set_clear_color(float r, float g, float b, float a)
@@ -23,12 +39,12 @@ void Renderer::set_viewport(int x, int y, int w, int h) {
 }
 
 void Renderer::render_mesh(const Mesh& mesh) {
-    auto window = Application::get_instance().get_window();
-    auto camera = Application::get_instance().get_camera();
+    auto window = Application::get_instance()->get_window();
+    auto camera = Application::get_instance()->get_camera();
 
     auto model = mesh.get_model();
-    auto view = camera->get_view();
-    auto projection = glm::perspective( camera->get_fov()
+    auto view = camera.get_view();
+    auto projection = glm::perspective( camera.get_fov()
                                                     , static_cast<float>(window->width()) / static_cast<float>(window->height())
                                                     , 0.1f
                                                     , 100.0f);
@@ -42,4 +58,13 @@ void Renderer::render_mesh(const Mesh& mesh) {
     glUniformMatrix4fv(projection_loc, 1, GL_FALSE, glm::value_ptr(projection));
 
     mesh.draw();
+}
+
+void Renderer::swap_buffers() {
+    auto window = Application::get_window();
+    if(!window) {
+        std::cerr << "[Renderer::swap_buffers] : window is not created yet" << std::endl;
+    }
+    glfwSwapBuffers(static_cast<GLFWwindow*>(window->get_native_window()));
+    glfwPollEvents();  
 }

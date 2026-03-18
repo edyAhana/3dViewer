@@ -16,9 +16,8 @@ add_library(GLFW
         Platform/OpenGL/Shader/Shader.cpp
         Platform/OpenGL/Shader/ShaderProgram.cpp
         Platform/OpenGL/Shader/ShaderManager.cpp
-        Platform/GLFW/GLFWContext.cpp
+        Platform/OpenGL/OpenGLRenderer.cpp
         Platform/GLFW/GLFWInput.cpp
-        Platform/GLFW/GLFWRenderer.cpp
         Platform/GLFW/GLFWWindow.cpp
 )
 
