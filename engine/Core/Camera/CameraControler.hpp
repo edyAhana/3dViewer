@@ -5,21 +5,19 @@
 
 class CameraControler {
 private:
-    Camera& camera;
+    static float camera_speed;
+    static float camera_sensitivity;
 
-    float camera_speed = 4;
-    float camera_sensitivity = 0.1;
+    static float last_x, last_y;
+    static bool first_mouse;
 
-    float last_x, last_y;
-    bool first_mouse = true;
-
-    void handle_input(float delta_time);
-    void handle_mouse(float delta_time);
+    static void handle_input(Camera& camera, float delta_time);
+    static void handle_mouse(Camera& camera, float delta_time);
 public:
-    CameraControler(Camera& camera): camera(camera) {};
+    CameraControler() = default;
     ~CameraControler() = default;
 
-    void update(float delta_time);
+    static void update(Camera& camera, float delta_time);
 };
 
 #endif //MAIN_CAMERACONTROLER_HPP

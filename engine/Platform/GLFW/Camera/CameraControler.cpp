@@ -3,7 +3,15 @@
 
 #include "GLFW.hpp"
 
-void CameraControler::handle_input(float delta_time) {
+
+float CameraControler::camera_speed = 4.0f;
+float CameraControler::camera_sensitivity = 0.1f;
+float CameraControler::last_x = 0.0f;
+float CameraControler::last_y = 0.0f;
+bool CameraControler::first_mouse = true;
+
+
+void CameraControler::handle_input(Camera& camera, float delta_time) {
     if (Input::is_key_pressed(GLFW_KEY_W)) {
         camera.move_forward(delta_time*camera_speed);
     } else if (Input::is_key_pressed(GLFW_KEY_S)) {
@@ -15,7 +23,7 @@ void CameraControler::handle_input(float delta_time) {
     }
 }
 
-void CameraControler::handle_mouse(float delta_time) {
+void CameraControler::handle_mouse(Camera& camera, float delta_time) {
     // if (!Input::is_mouse_pressed(GLFW_MOUSE_BUTTON_LEFT)) {
     //     return;
     // }
@@ -36,7 +44,7 @@ void CameraControler::handle_mouse(float delta_time) {
     camera.rotate(xoffset * camera_sensitivity, yoffset * camera_sensitivity);
 }
 
-void CameraControler::update(float delta_time) {
-    handle_mouse(delta_time);
-    handle_input(delta_time);
+void CameraControler::update(Camera& camera, float delta_time) {
+    handle_mouse(camera, delta_time);
+    handle_input(camera, delta_time);
 }
