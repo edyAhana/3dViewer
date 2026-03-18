@@ -13,11 +13,15 @@ class Shader {
 private:
     std::string shader; 
     GLuint id;
+
+    void check_error(const char* msg) const;
 public:
     Shader();
     Shader(std::string shader);
-    Shader(const Shader& other) = default;
-    Shader& operator=(const Shader& other) = default;
+    Shader(const Shader& other) = delete;
+    Shader& operator=(const Shader& other) = delete;
+    Shader(Shader&& other) noexcept;
+    Shader& operator=(Shader&& other) noexcept;
     ~Shader();
 
     static std::optional<Shader> read_from_file(const Path& file_path);

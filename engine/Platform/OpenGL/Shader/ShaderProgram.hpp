@@ -1,7 +1,8 @@
 #ifndef MAIN_SHADERPROGRAM_HPP
 #define MAIN_SHADERPROGRAM_HPP
 
-#include  "Shader.hpp"
+#include "Math.hpp"
+#include "Shader.hpp"
 #include "GLFW.hpp"
 
 class ShaderProgram {
@@ -17,6 +18,8 @@ public:
     void use() const;
 
     GLuint get_id() const { return id; }
+    bool set_uniform_matrix4(const std::string& name, const matrix4& value) const;
+    bool set_uniform_vec3(const std::string& name, const vector3& value) const;
 };
 
 #endif 
