@@ -7,7 +7,6 @@
 #include "Window.hpp"
 #include "Renderer.hpp"
 #include "Time.hpp"
-#include "CameraControler.hpp"
 
 class Application {
 private:
@@ -15,7 +14,6 @@ private:
 private:
     std::shared_ptr<Window> window;
     Camera camera;
-    CameraControler camera_controler;
 
     Application(const WindowProperty& wp = WindowProperty());
     friend std::unique_ptr<Application> std::make_unique<Application>(const WindowProperty& wp);

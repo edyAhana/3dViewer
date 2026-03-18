@@ -10,12 +10,13 @@
 #include "ShaderManager.hpp"
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
+#include "CameraControler.hpp"
 
 Application* Application::Instance = nullptr;
 
 Application::Application(const WindowProperty& wp): window(Window::create_window(wp))
-                                                  , camera()
-                                                  , camera_controler(camera) {}
+                                                  , camera() {}
+                                                  
 
 
 bool Application::init() {
@@ -44,8 +45,8 @@ bool Application::run() {
         Renderer::set_clear_color();
         Renderer::clear();
 
-        camera_controler.update(Time::get_delta());
-
+        CameraControler::update(camera, Time::get_delta());
+        
         ShaderManager::use_program();
 
         Renderer::render_mesh(*cube);
