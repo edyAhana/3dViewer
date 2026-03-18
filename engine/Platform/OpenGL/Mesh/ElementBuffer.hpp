@@ -11,14 +11,14 @@ private:
     GLuint buffer_id;
     GLuint size;
     GLenum vertex_usage;
+    bool is_init = false;
+
+    void create_buffer();
+    void check_error(const char* msg) const;
 public:
     ElementBuffer(GLenum vertex_usage = GL_STATIC_DRAW);
     ElementBuffer(const void* data, std::size_t sz, GLenum vertex_usage = GL_STATIC_DRAW);
     ElementBuffer(const std::vector<unsigned>& data, GLenum vertex_usage = GL_STATIC_DRAW);
-    ElementBuffer(const ElementBuffer& other) = delete;
-    ElementBuffer(ElementBuffer&& other) noexcept = default;
-    ElementBuffer& operator=(const ElementBuffer& other) = delete;
-    ElementBuffer& operator=(ElementBuffer&& other) noexcept = default;
     ~ElementBuffer();
 
     void bind() const;
@@ -29,7 +29,7 @@ public:
 
     GLuint get_id() const;
     std::size_t get_size() const;
-
+    bool is_initialized() const { return is_init; }
 };
 
 #endif

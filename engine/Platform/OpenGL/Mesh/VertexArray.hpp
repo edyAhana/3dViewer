@@ -9,6 +9,10 @@
 class VertexArray {
 private:
     GLuint vao_id;
+    bool is_init = false;
+
+    void create_buffer();
+    void check_error(const char* msg) const;
 public:
     VertexArray();
     VertexArray(const VertexArray& other) = delete;

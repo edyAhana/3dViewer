@@ -1,6 +1,3 @@
-#ifndef VERTEX_ARRAY_H
-#define VERTEX_ARRAY_H
-
 #include "VertexArray.hpp"
 
 #include <iostream>
@@ -21,20 +18,24 @@ std::size_t convert_type_to_size(GLenum type) {
 }
 
 VertexArray::VertexArray() {
-    glGenVertexArrays(1, &vao_id);
-    if (vao_id == 0) {
-        std::cerr << "[VertexArray::VertexArray] Failed to create VAO." << std::endl;
+    create_buffer();
+    if(!is_init) {
+        std::cerr << "[VertexArray::VertexArray] : Failed to create vertex array object." << std::endl;
     }
 }
 
 VertexArray::~VertexArray() {
-    if (vao_id > 0) {
+    if(is_init) {
         glDeleteVertexArrays(1, &vao_id);
     }
 }
 
 void VertexArray::bind() const {
-    glBindVertexArray(vao_id);
+    if(is_init) {
+        glBindVertexArray(vao_id);
+    } else {
+        std::cerr << "[VertexArray::bind] : Attempting to bind an uninitialized vertex array object." << std::endl;
+    }
 }
 
 void VertexArray::unbind() const {
@@ -42,6 +43,11 @@ void VertexArray::unbind() const {
 }
 
 void VertexArray::set_vertex_buffer(const VertexBuffer& buff, const VertexLayout& layout)  const{
+    if(!is_init || !buff.is_initialized()) {
+        std::cerr << "[VertexArray::set_vertex_buffer] : Attempting to set vertex buffer on an uninitialized vertex array object or using an uninitialized vertex buffer." << std::endl;
+        return;
+    }
+
     bind();
     buff.bind();
 
@@ -54,20 +60,21 @@ void VertexArray::set_vertex_buffer(const VertexBuffer& buff, const VertexLayout
                              , reinterpret_cast<const GLvoid*>(layout[i].offset)
                              );
         glEnableVertexAttribArray(i);
-        if (GLenum error = glGetError(); error != GL_NO_ERROR) {
-            std::cerr << "OpenGL error in vertex attribute " << i << ": " << error << std::endl;
-        }
+        check_error("VertexArray::set_vertex_buffer");
     }
     buff.unbind();
     unbind();
 }
 
 void VertexArray::set_element_buffer(const ElementBuffer& buff) const {
+    if(!is_init || !buff.is_initialized()) {
+        std::cerr << "[VertexArray::set_element_buffer] : Attempting to set element buffer on an uninitialized vertex array object or using an uninitialized element buffer." << std::endl;
+        return;
+    }
+
     bind();
     buff.bind();
-    if (GLenum error = glGetError(); error != GL_NO_ERROR) {
-        std::cerr << "OpenGL error in element attribute "  << error << std::endl;
-    }
+    check_error("VertexArray::set_element_buffer");
     unbind();
 }
 
@@ -75,4 +82,15 @@ GLuint VertexArray::get_id() const {
     return vao_id;
 }
 
-#endif
+void VertexArray::create_buffer() {
+    glGenVertexArrays(1, &vao_id);
+    if (vao_id > 0) {
+        is_init = true;
+    }
+}
+
+void VertexArray::check_error(const char* msg) const {
+    if (GLenum error = glGetError(); error != GL_NO_ERROR) {
+        std::cerr << "OpenGL error in " << msg << ": " << error << std::endl;
+    }
+}
