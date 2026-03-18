@@ -2,9 +2,13 @@
 
 int main(void)
 {
-    Application& app = Application::get_instance();
+    Application* app = Application::get_instance();
 
-    app.run();
+    if(!app->init()) {
+        return -1;
+    }
+
+    app->run();
 
     return 0;
 }
