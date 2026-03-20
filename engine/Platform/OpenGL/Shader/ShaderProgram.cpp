@@ -76,7 +76,7 @@ bool ShaderProgram::set_uniform_matrix4(const std::string& name, const matrix4& 
     return true;
 }
 
-bool ShaderProgram::set_uniform_vec3(const std::string& name, const vector3& value) const {
+bool ShaderProgram::set_uniform_vector3(const std::string& name, const vector3& value) const {
     if(id == 0) {
         std::cerr << "[ShaderProgram::set_uniform_vec3] : Program is not created." << std::endl;
         return false;

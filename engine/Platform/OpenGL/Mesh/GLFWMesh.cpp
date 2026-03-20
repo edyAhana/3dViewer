@@ -1,4 +1,5 @@
 #include "GLFWMesh.hpp"
+#include "ShaderManager.hpp"
 
 #include "glm/ext/quaternion_transform.hpp"
 
@@ -120,7 +121,11 @@ std::shared_ptr<Mesh> Mesh::create_cube(std::size_t width) {
     vertices.push_back({-s, -s,  s, 1.0f, 0.0f, 0.0f}); // красный
     vertices.push_back({-s, -s, -s, 1.0f, 0.0f, 1.0f}); // пурпурный
     vertices.push_back({ s, -s, -s, 0.0f, 1.0f, 1.0f}); // циан
-    return std::make_shared<GLFWMesh>(std::move(vertices));
+
+    Material material(vector3(1.0f, 0.0f, 0.0f));
+    material.set_shader_program(ShaderManager::get_program("main_program"));
+
+    return std::make_shared<GLFWMesh>(vertices, material);
 }
 
 std::shared_ptr<Mesh> Mesh::create_sphere(std::size_t radius, std::size_t segments) {}

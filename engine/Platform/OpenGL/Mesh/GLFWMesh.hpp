@@ -20,11 +20,14 @@ private:
 public:
     GLFWMesh() = default;
     GLFWMesh( const std::vector<Vertex>& vertices
+            , Material material = Material()
             , const std::vector<unsigned int>& indices = std::vector<unsigned int>()
-            , matrix4 model = matrix4(1))
+            , matrix4 model = matrix4(1)
+            )
                     : Mesh( vertices
                           , indices
-                          , model   ) {
+                          , model
+                          , material) {
         set_up_mesh();
     }
 

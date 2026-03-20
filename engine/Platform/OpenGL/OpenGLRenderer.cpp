@@ -52,6 +52,7 @@ void Renderer::render_mesh(const Mesh& mesh) {
     ShaderManager::get_program("main_program")->set_uniform_matrix4("model", model);
     ShaderManager::get_program("main_program")->set_uniform_matrix4("view", view);
     ShaderManager::get_program("main_program")->set_uniform_matrix4("projection", projection);
+    ShaderManager::get_program("main_program")->set_uniform_vector3("our_color", mesh.get_material().get_color());
     
     mesh.draw();
 }
