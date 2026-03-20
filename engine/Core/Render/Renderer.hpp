@@ -2,6 +2,7 @@
 #define RENDERER_HPP
 
 #include "Mesh.hpp"
+#include "Scene.hpp"
 
 class Renderer {
 public: 
@@ -11,6 +12,7 @@ public:
     static void clear();
     static void set_viewport(int x, int y, int w, int h);
     static void render_mesh(const Mesh& mesh);
+    static void render(const Scene& scene);
     static void swap_buffers();
 };
 

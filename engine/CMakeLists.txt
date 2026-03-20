@@ -33,6 +33,7 @@ target_include_directories(GLFW PUBLIC
         Core/Camera/
         Core/Input/
         Core/Render/
+        Core/Scene/
         Core/Time/
         Core/Window/
         Platform/OpenGL/Mesh

@@ -7,13 +7,14 @@
 #include "Window.hpp"
 #include "Renderer.hpp"
 #include "Time.hpp"
+#include "Scene.hpp"
 
 class Application {
 private:
     static Application* Instance;
 private:
     std::shared_ptr<Window> window;
-    Camera camera;
+    std::shared_ptr<Scene> scene;
 
     Application(const WindowProperty& wp = WindowProperty());
     friend std::unique_ptr<Application> std::make_unique<Application>(const WindowProperty& wp);

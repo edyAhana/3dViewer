@@ -49,14 +49,10 @@ void Renderer::render_mesh(const Mesh& mesh) {
                                                     , 0.1f
                                                     , 100.0f);
 
-    auto model_loc = glGetUniformLocation(ShaderManager::get_program_id(), "model");
-    auto view_loc = glGetUniformLocation(ShaderManager::get_program_id(), "view");
-    auto projection_loc = glGetUniformLocation(ShaderManager::get_program_id(), "projection");
-
-    glUniformMatrix4fv(model_loc, 1, GL_FALSE, glm::value_ptr(model));
-    glUniformMatrix4fv(view_loc, 1, GL_FALSE, glm::value_ptr(view));
-    glUniformMatrix4fv(projection_loc, 1, GL_FALSE, glm::value_ptr(projection));
-
+    ShaderManager::get_program("main_program")->set_uniform_matrix4("model", model);
+    ShaderManager::get_program("main_program")->set_uniform_matrix4("view", view);
+    ShaderManager::get_program("main_program")->set_uniform_matrix4("projection", projection);
+    
     mesh.draw();
 }
 
@@ -67,4 +63,10 @@ void Renderer::swap_buffers() {
     }
     glfwSwapBuffers(static_cast<GLFWwindow*>(window->get_native_window()));
     glfwPollEvents();  
+}
+
+void Renderer::render(const Scene& scene) {
+    for(const auto& mesh : scene.get_meshes()) {
+        render_mesh(*mesh);
+    }
 }
