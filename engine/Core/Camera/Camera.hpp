@@ -30,6 +30,9 @@ public:
     float get_fov() const;
 
     matrix4 get_view() const;
+    vector3 get_position() const {
+        return position;
+    }
 };
 
 

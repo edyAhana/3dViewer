@@ -42,17 +42,33 @@ void Renderer::render_mesh(const Mesh& mesh) {
     auto window = Application::get_instance()->get_window();
     auto camera = Application::get_instance()->get_camera();
 
+
     auto model = mesh.get_model();
     auto view = camera.get_view();
     auto projection = glm::perspective( camera.get_fov()
                                                     , static_cast<float>(window->width()) / static_cast<float>(window->height())
                                                     , 0.1f
                                                     , 100.0f);
+    
+    mesh.use_material();
 
-    ShaderManager::get_program("main_program")->set_uniform_matrix4("model", model);
-    ShaderManager::get_program("main_program")->set_uniform_matrix4("view", view);
-    ShaderManager::get_program("main_program")->set_uniform_matrix4("projection", projection);
-    ShaderManager::get_program("main_program")->set_uniform_vector3("our_color", mesh.get_material().get_color());
+    mesh.get_material().get_shader_program()->set_uniform_matrix4("model", model);
+    mesh.get_material().get_shader_program()->set_uniform_matrix4("view", view);
+    mesh.get_material().get_shader_program()->set_uniform_matrix4("projection", projection);
+
+    mesh.get_material().get_shader_program()->set_uniform_vector3("our_color", mesh.get_material().get_color());
+
+    mesh.get_material().get_shader_program()->set_uniform_vector3("view_pos", camera.get_position());
+
+    mesh.get_material().get_shader_program()->set_uniform_vector3("light.position", vector3(1.0f, 3.0f, 5.0f));
+    mesh.get_material().get_shader_program()->set_uniform_vector3("light.ambient", vector3(0.2f, 0.2f, 0.2f));
+    mesh.get_material().get_shader_program()->set_uniform_vector3("light.diffuse", vector3(0.5f, 0.5f, 0.5f));
+    mesh.get_material().get_shader_program()->set_uniform_vector3("light.specular", vector3(1.0f, 1.0f, 1.0f));
+
+    mesh.get_material().get_shader_program()->set_uniform_vector3("material.ambient", vector3(0.24725f, 0.1995f, 0.0745f));
+    mesh.get_material().get_shader_program()->set_uniform_vector3("material.diffuse", vector3(0.75164f, 0.60648f, 0.22648f));
+    mesh.get_material().get_shader_program()->set_uniform_vector3("material.specular", vector3(0.628281f, 0.555802f, 0.366065f));
+    mesh.get_material().get_shader_program()->set_uniform_float("material.shininess", 4);
     
     mesh.draw();
 }

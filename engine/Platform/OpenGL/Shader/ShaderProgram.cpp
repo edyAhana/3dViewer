@@ -92,3 +92,20 @@ bool ShaderProgram::set_uniform_vector3(const std::string& name, const vector3& 
     glUniform3fv(location, 1, glm::value_ptr(value));
     return true;
 }
+
+bool ShaderProgram::set_uniform_float(const std::string& name, float value) const {
+    if(id == 0) {
+        std::cerr << "[ShaderProgram::set_uniform_float] : Program is not created." << std::endl;
+        return false;
+    }
+
+    GLint location = glGetUniformLocation(id, name.c_str());
+
+    if(location == -1) {
+        std::cerr << "[ShaderProgram::set_uniform_float] : Failed to find uniform location." << std::endl;
+        return false;
+    }
+
+    glUniform1f(location, value);
+    return true;
+}

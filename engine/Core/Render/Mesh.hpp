@@ -34,14 +34,16 @@ public:
                         , material(material){}
     virtual ~Mesh() = default;
 
-    static std::shared_ptr<Mesh> create_cube(std::size_t width = 1);
-    static std::shared_ptr<Mesh> create_sphere(std::size_t radius = 1, std::size_t segments = 32);
-    static std::shared_ptr<Mesh> create_cylinder(std::size_t radius = 1, std::size_t height = 2, std::size_t segments = 32);
+    static std::shared_ptr<Mesh> create_cube(float width = 1);
+    static std::shared_ptr<Mesh> create_sphere(float radius = 1, std::size_t segments = 32);
+    static std::shared_ptr<Mesh> create_cylinder(float radius = 1, float height = 2, std::size_t segments = 32);
 
     virtual void draw() const = 0;
     virtual void rotate(float angle, MeshEnum axis) = 0;
     virtual void translate(const vector3& translation) = 0;
     virtual void scale(const vector3& scale) = 0;
+
+    void use_material() const { material.get_shader_program()->use(); }
 
     auto& get_model() const noexcept { return model; }
     void set_model(const matrix4& new_model) noexcept { model = new_model; }

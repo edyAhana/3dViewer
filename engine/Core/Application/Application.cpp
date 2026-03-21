@@ -32,14 +32,16 @@ bool Application::init() {
 
     ShaderManager::add_shader("vertex_shader", "../engine/ShaderSource/vertex_shader.glsl", GL_VERTEX_SHADER);
     ShaderManager::add_shader("fragment_shader", "../engine/ShaderSource/fragment_shader.glsl", GL_FRAGMENT_SHADER);
+    ShaderManager::add_shader("light_fragment_shader", "../engine/ShaderSource/light_fragment_shader.glsl", GL_FRAGMENT_SHADER);
     ShaderManager::add_program({"vertex_shader", "fragment_shader"}, "main_program");
+    ShaderManager::add_program({"vertex_shader", "light_fragment_shader"}, "light_program");
 
     return true;
 }
 
 bool Application::run() {
-    scene->add_mesh(Mesh::create_cube());
-
+    auto cube = Mesh::create_cube();
+    scene->add_mesh(cube);
 
     while(!window->window_should_close()) {
         Time::update();
@@ -48,11 +50,12 @@ bool Application::run() {
         Renderer::clear();
 
         CameraControler::update(scene->get_camera(), Time::get_delta());
-        
-        ShaderManager::get_program("main_program")->use();
+
+        cube->rotate(20 * Time::get_delta(), Mesh::MeshEnum::AXIS_Y);
+        // cube->rotate(5 * Time::get_delta(), Mesh::MeshEnum::AXIS_X);
+        // cube->rotate(5 * Time::get_delta(), Mesh::MeshEnum::AXIS_Z);
 
         Renderer::render(*scene);
-        // Renderer::render_mesh(*cube);
 
         Renderer::swap_buffers();
     }

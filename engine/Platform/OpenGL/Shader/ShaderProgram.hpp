@@ -20,6 +20,7 @@ public:
     GLuint get_id() const { return id; }
     bool set_uniform_matrix4(const std::string& name, const matrix4& value) const;
     bool set_uniform_vector3(const std::string& name, const vector3& value) const;
+    bool set_uniform_float(const std::string& name, float value) const;
 };
 
 #endif 
